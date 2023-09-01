@@ -1,0 +1,214 @@
+DECLARE
+    message varchar2(20):= 'Hello World';
+    BEGIN
+    dbms_output.put_line(message);
+    END;
+    
+    ----declare the variables----
+    
+    DECLARE
+    num1 integer:=10;
+    num2 integer:=20;
+    addition integer;
+    div real;
+    BEGIN
+    addition:= num1+num2;
+    dbms_output.put_line('Addition :' || addition);
+    div:=100.0/3;
+    dbms_output.put_line('Division :' || div);
+    END;
+    
+    ------Local variable and Global variable-----
+    
+   DECLARE
+   num1 number:=28;
+   num2 number:= 24;
+   BEGIN
+    dbms_output.put_line('Global variable:' || num1);
+    dbms_output.put_line('Global variable:' || num2);
+    DECLARE
+   num1 number:=2000;
+   num2 number:= 1996;
+   BEGIN
+    dbms_output.put_line('Local variable:' || num1);
+    dbms_output.put_line('Local variable:' || num2);
+    END;
+    END;
+    
+    
+    --------Constant values----
+    
+   declare
+   pi constant number := 3.141592654;
+   radius number(5,2);  
+   diameter number(5,2);  
+   circumference number(7, 2); 
+   area number (10, 2); 
+   
+   begin
+   radius := 9.5;  
+   diameter := radius * 2;  
+   circumference := 2.0 * pi * radius; 
+   area := pi * radius * radius; 
+   -- output 
+   dbms_output.put_line('Radius: ' || radius); 
+   dbms_output.put_line('Diameter: ' || diameter); 
+   dbms_output.put_line('Circumference: ' || circumference); 
+   dbms_output.put_line('Area: ' || area); 
+END; 
+
+    
+    ---------Table creation-----
+    create table customer_cust(
+        id number primary key,
+        name varchar2(30) not null,
+        age number,
+        address varchar2(50),
+        salary decimal(18,2)
+    );
+    
+select * from customer_cust;
+
+INSERT INTO CUSTOMER_CUST (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, 'Ramesh', 32, 'Ahmedabad', 2000.00 );  
+
+----select into clause--------
+DECLARE
+c_id customer_cust.id%type :=1;
+c_name customer_cust.name%type;
+c_address customer_cust.address%type;
+c_salary customer_cust.salary%type;
+
+BEGIN
+    select name,address,salary into c_name,c_address,c_salary from customer_cust where id=c_id;
+    dbms_output.put_line('Dear Customer '|| c_name ||' Your salary '||c_salary ||' is credited from '||c_address);
+    
+END;
+
+
+-----insert into-----
+
+declare
+customer customer_cust%Rowtype;
+begin
+customer.id:=7;
+customer.name:='Sandhiya';
+customer.age:=23;
+customer.address:='TamilNadu';
+customer.salary:=16000;
+
+insert into customer_cust (id,name,age,address,salary) values(customer.id,customer.name,customer.age,customer.address,customer.salary);
+dbms_output.put_line('Row inserted');
+end;
+
+---simple insert ----
+begin
+insert into customer_cust (id,name,age,address,salary) values(2,'Sandhiya',23,'Tamil Nadu',16000);
+dbms_output.put_line('Row inserted');
+end;
+
+
+-------If-else-------
+declare
+age number:=54;
+begin
+if(age >1 and age<18) then
+     dbms_output.put_line('Under Age');
+elsif(age>18 and age<55) then
+     dbms_output.put_line('Moderate Age');
+else
+    dbms_output.put_line('Old age');
+end if;
+end;
+
+----case [switch]----
+declare
+name varchar2(30):='Sandhiya';
+begin
+case name
+    when 'Sandhiya' then dbms_output.put_line('San');
+    when 'Tamil' then dbms_output.put_line('Joy');
+    when 'Monica' then dbms_output.put_line('Moni');
+    else dbms_output.put_line('deepi');
+    end case;
+    end;
+    
+    
+----basic/exit loop------
+declare
+num number:=1;
+num1 number:=5;
+begin
+loop
+exit when num>10;
+ dbms_output.put_line(num*num1);
+ num:=num+1;
+ end loop;
+ end;
+ 
+ ---while loop---
+ declare
+ num number:=1;
+ num1 number:=5;
+ begin
+ while (num<=10)
+ loop
+ dbms_output.put_line(num*num1);
+ num:=num+1;
+ end loop;
+ end;
+ 
+ ---for loop--
+ declare
+ num number:=2;
+ begin
+for i in 1..10
+loop
+dbms_output.put_line(num*i);
+end loop;
+end;
+
+
+ ---for loop reverse--
+ declare
+ num number:=2;
+ begin
+for i in reverse 1..10
+loop
+dbms_output.put_line(num*i);
+end loop;
+end;
+
+
+----continue loop with exit loop---
+declare
+x number:=0;
+begin
+loop
+dbms_output.put_line('Inside loop' || x);
+x:=x+1;
+if x<5 then
+continue;
+end if;
+dbms_output.put_line('Inside loop but outside if loop '||x);
+exit when x>10;
+end loop;
+dbms_output.put_line('End of exit loop '||x);
+end;
+
+
+-----GOTO-----
+declare
+x number:=0;
+begin
+<<gotoloop>>
+while x<20 loop
+dbms_output.put_line('value of x= ' || x);
+x:=x+1;
+if x= 15 then
+dbms_output.put_line('Goto loop condition : '||x);
+x:=x+1;
+goto gotoloop;
+end if;
+end loop;
+end;
+

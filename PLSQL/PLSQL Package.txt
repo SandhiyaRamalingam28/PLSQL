@@ -1,0 +1,60 @@
+
+create or replace package sample as  procedure simple;
+end;
+
+create or replace package body sample as procedure simple
+is
+begin
+dbms_output.put_line('Hello Sandhiya');
+end simple;
+end sample;
+
+begin
+sample.simple;
+end;
+
+
+create or replace package samples as procedure simples(c out varchar2);
+end;
+
+
+
+create or replace package body samples as procedure simples(c out varchar2)
+is
+begin
+c:='Sandhiya';
+dbms_output.put_line(c);
+end simples;
+end samples;
+
+declare
+d varchar2(20);
+begin
+samples.simples(d);
+dbms_output.put_line('Hello '||d || ' !');
+end;
+
+---fetch details from table--
+
+select * from customer_cust;
+
+create or replace package demoSample as procedure demos(c in out number);
+end;
+
+create or replace package body demoSample as procedure demos(c in out number)
+is
+d varchar2(20); 
+l varchar2(50);
+begin
+select name, address into d,l from customer_cust where id=c;
+dbms_output.put_line('name :'||d ||', address : '||l);
+end demos;
+end demoSample;
+
+declare
+f customer_cust.id%type;
+begin
+f:=:enterId;
+demoSample.demos(f);
+end;
+

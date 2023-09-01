@@ -1,0 +1,150 @@
+Procedure:
+
+create or replace procedure sample
+as
+begin
+dbms_output.put_line('Hello Sandhiya'); //standalone procedure so using AS
+end;
+
+begin
+sample;
+end;
+
+OUTPUT:
+Hello Sandhiya
+
+parameters in procedure: [IN]
+#1
+create or replace procedure sample(c IN number)
+as
+begin
+//c:=7; //c will give error. becoz c is assigned as IN parameter.
+dbms_output.put_line(c);
+end;
+
+begin
+sample(28);
+end;
+
+
+OUTPUT:
+28
+
+#2
+create or replace procedure sample(c IN number:=24) default  value
+as
+begin
+dbms_output.put_line(c);
+end
+
+begin
+sample(55);
+end
+
+OUTPUT:
+55
+
+begin
+sample(); // empty argument is passed then default value will be passed
+end;
+
+OUTPUT:
+24
+
+
+parameters in procedure: [OUT]
+
+create or replace procedure sample(c OUT number)
+as
+begin
+c:=9;
+dbms_output.put_line(c);
+end;
+
+begin
+f number;
+sample(f);
+dbms_output.put_line(f);
+end;
+
+OUTPUT:
+9
+
+begin
+f number;
+sample(f);
+f:=8; //the value can't be changed
+sample(f);
+end;
+
+OUTPUT:
+9
+9
+
+
+parameters in procedure: [IN OUT]
+
+create or replace procedure sample(c IN OUT number)
+as
+begin
+if c is null then // when the procedure created first c value will be null
+c:=9;
+end if;
+dbms_output.put_line(c);
+end;
+
+begin
+f number;
+sample(f);
+f:=2;
+sample(f);
+end;
+
+OUTPUT:
+9
+2
+
+
+Concept:
+
+IN: remainder will get some value
+OUT: pass the value to the calling function
+IN OUT: combination of both
+
+# INLINE PROCEDURE [IS]
+
+declare
+s number;
+procedure simple
+IS
+begin
+s:=10;
+dbms_output.put_line(s);
+end;
+
+begin
+simple(s);
+end;
+
+OUTPUT:
+10
+
+#IS and IN
+declare
+s number;
+procedure simple(h IN number)
+IS
+begin
+s:=h;
+dbms_output.out_line(s);
+end;
+
+begin
+simple(20);
+end;
+
+OUTPUT:
+20
+
+#use for OUT and IN OUT
+

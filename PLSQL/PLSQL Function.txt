@@ -1,0 +1,47 @@
+create or replace function testing(L IN OUT number)
+return number
+as
+k number;
+begin
+L:=40;
+k:=L;
+k:=k+1;
+return k;
+end;
+
+declare
+n number;
+p number;
+begin
+n:=20;
+dbms_output.put_line(n); 
+p:=testing(n);
+dbms_output.put_line(p); 
+dbms_output.put_line(n);
+end;
+
+
+--inline procedure--
+
+declare
+b number;
+f number;
+function simple(c IN OUT number)
+return number
+is
+z number;
+begin
+z:=c;
+z:=8;
+z:=z+10;
+dbms_output.put_line('return of z' || z);
+return z;
+end;
+
+begin
+f:=40;
+dbms_output.put_line('return of f' ||f);
+b:=simple(f);
+dbms_output.put_line('return of b' ||b);
+end;
+

@@ -1,0 +1,45 @@
+---Procedure---
+create or replace procedure insertQuery
+(id in  number, name in varchar2, age in number, address varchar2, salary decimal)
+is 
+begin
+insert into customer_cust values(id,name,age,address,salary);
+end;
+
+begin
+insertQuery(3,'saranya',24,'Udumalpet',75000);
+end;
+
+drop procedure insertQuery;
+
+
+create or replace procedure greetings
+as
+begin
+dbms_output.put_line('Hello Sandhiya !');
+end;
+
+begin
+greetings;
+end;
+
+select * from customer_cust;
+
+
+create or replace procedure raise_salary(i IN number, e IN decimal, s OUT decimal)
+as
+begin
+update customer_cust  set salary=salary+e where id=i;
+commit;
+select salary into s  from customer_cust where id=i;
+end;  
+
+declare
+k number;
+begin
+raise_salary(2,2000,:k);
+end;
+
+
+
+
